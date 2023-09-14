@@ -8,7 +8,21 @@ def converter_index(request):
 
     if request.method == "GET":
         context = {
-            'currencies': currencies
+            'currencies': currencies,
+        }
+
+        return render(request=request, template_name='converter/converter-index.html', context=context)
+
+    if request.method == "POST":
+        amount = float(request.POST.get('amount'))
+        from_amount = request.POST.get('from')
+        to_amount = request.POST.get('to')
+
+        converted_amount = round(currencies[to_amount] / currencies[from_amount] * float(amount), 2)
+
+        context = {
+            'currencies': currencies,
+            'converted_amount': converted_amount,
         }
 
         return render(request=request, template_name='converter/converter-index.html', context=context)
