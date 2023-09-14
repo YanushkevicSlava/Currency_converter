@@ -2,14 +2,20 @@
 
 {% block content %}
 <div>
+    <h1>Конвертор валют</h1>
+</div>
+<div>
     <form action="" method="POST">
         {% csrf_token %}
-        <input type="text" name="amount">
+        <label for="amount">Введите количество:</label>
+        <input type="text" name="amount" id="amount">
+        <label for="from">из:</label>
         <select name="from" id="from" value="{{ from }}">
             {% for value in currencies %}
                 <option value="{{ value }}">{{ value }}</option>
             {% endfor %}
         </select>
+        <label for="to">в:</label>
         <select name="to" id="to" value="{{ to }}">
             {% for value in currencies %}
                 <option value="{{ value }}">{{ value }}</option>
@@ -17,8 +23,10 @@
         </select>
         <button type="submit">Конвертировать</button>
     </form>
-        {% if converted_amount %}
-            <div>Результат: {{ converted_amount }}</div>
-        {% endif %}
+        <p>
+            {% if converted_amount %}
+                <div>Результат: {{ converted_amount }}</div>
+            {% endif %}
+        </p>
 </div>
 {% endblock %}

@@ -1,8 +1,11 @@
+from django.http import HttpRequest, HttpResponse
 from django.shortcuts import render
 import requests
 
 
-def converter_index(request):
+def converter_index(request: HttpRequest) -> HttpResponse:
+    """ Функция конветрации валюты по актуальному курсу"""
+
     response = requests.get(url='https://v6.exchangerate-api.com/v6/b251f9d75c48903e2b2cae0d/latest/USD').json()
     currencies = response.get("conversion_rates")
 
@@ -18,6 +21,7 @@ def converter_index(request):
         from_amount = request.POST.get('from')
         to_amount = request.POST.get('to')
 
+        # формула расчёта результата конвертации.
         converted_amount = round(currencies[to_amount] / currencies[from_amount] * float(amount), 2)
 
         context = {
