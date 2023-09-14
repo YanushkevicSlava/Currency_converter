@@ -1,0 +1,19 @@
+{% extends 'converter/base.html' %}
+
+{% block content %}
+    <form action="" method="POST">
+        {% csrf_token %}
+        <input type="text" name="amound">
+        <select name="from" id="from" value="{{ from }}">
+            {% for value in currencies %}
+                <option value="{{ value }}">{{ value }}</option>
+            {% endfor %}
+        </select>
+        <select name="to" id="to" value="{{ to }}">
+            {% for value in currencies %}
+                <option value="{{ value }}">{{ value }}</option>
+            {% endfor %}
+        </select>
+        <button type="submit">Конвертировать</button>
+    </form>
+{% endblock %}
